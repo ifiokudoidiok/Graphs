@@ -52,33 +52,41 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        q = Queue()
-        q.enqueue(starting_vertex)
+        stack = Stack()
+        stack.push(starting_vertex)
         visited = set()
 
-        while q.size() > 0:
-            v = q.dequeue()
+        while stack.size() > 0:
+            v = stack.pop()
             if v not in visited:
                 visited.add(v)
                 print(v)
                 for next_vertex in self.vertices[v]:
-                    q.enqueue(next_vertex)
+                    stack.push(next_vertex)
 
 
-    def dft_recursive(self, starting_vertex, visited=None):
-        """
-        Print each vertex in depth-first order
-        beginning from starting_vertex.
-
-        This should be done using recursion.
-        """
+    def dft_recursive(self, start_vert, visited=None):
+        # if the visited structure is set to None
         if visited is None:
+            # create a new set for visited
             visited = set()
-        visited(starting_vertex)
-        print(starting_vertex)
-        for child_vert in self.vertices[starting_vertex]:
-            if child_vert not in visited:
-                self.dfs_recursive(child_vert, visited)
+        # add a starting vertex to the visited set
+        visited.add(start_vert)
+        # print the start vertex
+        print(start_vert)
+        # loop over every child vertex in vertices set at the start vertex
+        for child_vert in self.vertices[start_vert]:
+            # if child vertex is not in visited
+            if child_vert not in visited:            
+                # do a recursive call to dft_recursive
+                # using the child vertex and the current visited set as arguments
+                self.dft_recursive(child_vert, visited)
+
+
+
+
+
+
 
     def bfs(self, starting_vertex, destination_vertex):
         """
